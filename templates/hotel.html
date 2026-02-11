@@ -10,8 +10,8 @@
         <h2>Single Room</h2>
         <p class="price">£50</p>
         <p>Perfect solo travelers</p>
-        <form action="{{ url_for('purchase') }}" method="POST">
-            <input type="hidden" name="hotel_type" value="adult">
+        <form action="{{ url_for('hotelpurchase') }}" method="POST">
+            <input type="hidden" name="hotel_type" value="single">
             <button type="submit">Buy Now</button>
         </form>
     </div>
@@ -20,17 +20,17 @@
         <h2>Twin room</h2>
         <p class="price">£80</p>
         <p>Two beds twice the fun.</p>
-        <form action="{{ url_for('purchase') }}" method="POST">
-            <input type="hidden" name="hotel_type" value="child">
+        <form action="{{ url_for('hotelpurchase') }}" method="POST">
+            <input type="hidden" name="hotel_type" value="twin">
             <button type="submit">Buy Now</button>
         </form>
     </div>
 
     <div class="ticket-card">
         <h2>Family room</h2>
-        <p class="price">£45</p>
+        <p class="price">£120</p>
         <p>2 adults + 2 children</p>
-        <form action="{{ url_for('purchase') }}" method="POST">
+        <form action="{{ url_for('hotelpurchase') }}" method="POST">
             <input type="hidden" name="hotel_type" value="family">
             <button type="submit">Buy Now</button>
         </form>

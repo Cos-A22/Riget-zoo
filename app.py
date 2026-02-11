@@ -50,6 +50,22 @@ def purchase():
         price=price
     )
 
+@app.route("/hotelpurchase", methods=["POST"])
+def hotelpurchase():
+    ticket_type = request.form.get("hotel_type")
+
+    prices = {
+        "single": 50,
+        "twin": 80,
+        "family": 120
+    }
+    price = prices.get(ticket_type, 0)
+
+    return render_template(
+        "hotelconfirmation.html",
+        ticket_type=ticket_type.capitalize(),
+        price=price
+    )
 
 @app.errorhandler(404)
 def page_not_found(e):
