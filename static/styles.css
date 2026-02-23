@@ -100,10 +100,9 @@ button:hover {
 /* CARDS */
 .cards-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 3rem 2rem;
+    gap: 20px
 }
 
 .info-card {

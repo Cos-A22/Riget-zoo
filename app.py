@@ -1,6 +1,57 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+# User model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
+with app.app_context():
+    db.create_all()
+
+# SIGNUP
+@app.post("/signup")
+def signup_post():
+    username = request.form["username"]
+    email = request.form["email"]
+    password = request.form["password"]
+
+    hashed = generate_password_hash(password)
+
+    try:
+        user = User(username=username, email=email, password=hashed)
+        db.session.add(user)
+        db.session.commit()
+        return render_template("signup_success.html", username=username)
+    except:
+        return render_template("signup_error.html")
+
+# LOGIN
+@app.post("/login")
+def login_post():
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        return render_template("login_error.html", message="User not found")
+
+    if not check_password_hash(user.password, password):
+        return render_template("login_error.html", message="Incorrect password")
+
+    return render_template("login_success.html", username=user.username)
+
+
 
 
 @app.route("/")

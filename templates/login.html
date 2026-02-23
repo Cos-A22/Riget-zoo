@@ -1,10 +1,13 @@
+
 {% extends "base.html" %}
 {% block content %}
 <section class="page-section form-section">
     <h1>Login</h1>
-    <form class="auth-form">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+    <form action="http://127.0.0.1:5000/login" method="POST">
+
+        <input type="email" name="email" required>
+        <input type="password" name="password" required>
+
         <button type="submit">Login</button>
     </form>
 </section>
